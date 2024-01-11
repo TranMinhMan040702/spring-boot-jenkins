@@ -6,6 +6,15 @@ pipeline {
         choice(name: 'ACTION', choices: ['Build', 'Remove all'], description: 'Pick something')
     }
     stages {
+        stage('Verify tooling') {
+            steps {
+                sh '''
+                    docker info
+                    docker version
+                    docker compose version
+                '''
+            }
+        }
         stage('Building/Deploying') {
             when{
                 environment name: 'ACTION', value: 'Build'
