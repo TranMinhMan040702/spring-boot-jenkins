@@ -2,6 +2,11 @@ pipeline {
 
     agent any
 
+    environment {
+        p = sh 'echo $PATH'
+        PATH = p + ':/usr/local/bin/docker-compose'
+    }
+
     parameters {
         choice(name: 'ACTION', choices: ['Build', 'Remove all'], description: 'Pick something')
     }
